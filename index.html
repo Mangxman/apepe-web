@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEPE_MEME WEBSITE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Fredoka',sans-serif;
+overflow-x:hidden;
+background:#0b0d19; /* Warna dasar luar angkasa gelap */
+color:white;
+position: relative;
+}
+
+/* KANVAS UNTUK BACKGROUND ANIMASI */
+#space-bg {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: -1; /* Berada di paling belakang */
+pointer-events: none;
+}
+
+/* ELEMEN PLANET BACKGROUND BERPUTAR */
+.bg-planet {
+position: fixed;
+top: 25%;
+right: -100px;
+width: 350px;
+height: 350px;
+background: radial-gradient(circle at 30% 30%, #4f46e5, #1e1b4b, #090514);
+border-radius: 50%;
+z-index: -1;
+box-shadow: 0 0 60px rgba(79, 70, 229, 0.4);
+animation: rotatePlanet 40s linear infinite;
+pointer-events: none;
+}
+
+/* Cincin Planet */
+.bg-planet::after {
+content: '';
+position: absolute;
+top: 50%;
+left: 50%;
+width: 500px;
+height: 40px;
+border: 15px solid rgba(165, 180, 252, 0.2);
+border-radius: 50%;
+transform: translate(-50%, -50%) rotate(-15deg);
+box-shadow: 0 0 20px rgba(165, 180, 252, 0.1);
+}
+
+@keyframes rotatePlanet {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+button{
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-5px);
+}
+
+.navbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+z-index:999;
+padding:20px 60px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(0,0,0,.45);
+backdrop-filter:blur(15px);
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:38px;
+font-weight:700;
+}
+
+.logo img{
+width:240px;
+max-width: 100%;
+height: auto;
+}
+
+.nav-links{
+display:flex;
+list-style:none;
+gap:30px;
+align-items:center;
+}
+
+.nav-links a{
+color:white;
+text-decoration:none;
+font-weight:600;
+transition: .3s;
+}
+
+.nav-links a:hover{
+color:#dfff4f;
+}
+
+/* Nav Right Container untuk Tombol & Ikon Sosial */
+.nav-right {
+display: flex;
+align-items: center;
+gap: 20px;
+}
+
+.social-nav-btn {
+font-size: 24px;
+text-decoration: none;
+transition: transform 0.3s;
+cursor: pointer;
+}
+
+.social-nav-btn:hover {
+transform: scale(1.2);
+}
+
+/* BURGER MENU STYLING */
+.burger-menu {
+display: none;
+flex-direction: column;
+gap: 6px;
+cursor: pointer;
+z-index: 1001;
+}
+
+.burger-menu span {
+display: block;
+width: 30px;
+height: 4px;
+background-color: white;
+border-radius: 2px;
+transition: 0.3s ease;
+}
+
+/* Animasi Burger Menu Aktif */
+.burger-menu.active span:nth-child(1) {
+transform: translateY(10px) rotate(45deg);
+}
+.burger-menu.active span:nth-child(2) {
+opacity: 0;
+}
+.burger-menu.active span:nth-child(3) {
+transform: translateY(-10px) rotate(-45deg);
+}
+
+.buy-btn,.primary-btn,.secondary-btn,.play-btn,.copy-btn,.float-buy{
+border:none;
+border-radius:50px;
+font-weight:700;
+cursor:pointer;
+box-shadow:0 5px 0 #000;
+}
+
+.buy-btn{
+padding:14px 26px;
+background:#dfff4f;
+}
+
+.section{
+min-height:100vh;
+padding:140px 80px 80px;
+background: transparent;
+}
+
+#home{
+position:relative;
+display: flex;
+align-items: center;
+padding-top: 130px; 
+overflow: visible;
+}
+
+/* CONTAINER ANIMASI PESAWAT BALON GAS BARU */
+.zeppelin-forward-container {
+position: relative;
+width: 100%;
+height: auto;
+min-height: 120px;
+margin-top: 20px; 
+overflow: visible;
+pointer-events: none;
+}
+
+.anniversary-zeppelin-forward {
+position: absolute;
+height: auto;
+width: 100%;
+max-width: 340px;
+object-fit: contain;
+animation: flightForwardOnly 16s linear infinite, zeppelinWobble 3.5s ease-in-out infinite;
+}
+
+/* ANIMASI GERAK MAJU KEDEPAN LOOP (KANAN KE KIRI) */
+@keyframes flightForwardOnly {
+0% {
+    left: 110%;
+}
+100% {
+    left: -350px; 
+}
+}
+
+/* Efek Melayang Naik-Turun Alami */
+@keyframes zeppelinWobble {
+0%, 100% { transform: translateY(0px); }
+50% { transform: translateY(-15px); }
+}
+
+/* STYLE STRUKTUR GRID HALAMAN UTAMA */
+.home-content{
+position:relative;
+z-index:2;
+display:grid;
+grid-template-columns: 1.2fr 1fr 1.1fr; 
+align-items: center;
+gap: 30px;
+width: 100%;
+}
+
+/* Kolom Kiri: Teks & Tombol */
+.home-right{
+display: flex;
+flex-direction: column;
+justify-content: center;
+z-index: 10;
+}
+
+.home-right h1{
+font-size: clamp(40px, 6vw, 80px);
+-webkit-text-stroke:4px black;
+text-shadow:6px 6px 0 black;
+line-height: 1.1;
+}
+
+.home-right p{
+font-size: clamp(18px, 2vw, 24px);
+margin:15px 0 25px;
+font-weight: 500;
+color: #dfff4f;
+}
+
+.button-group{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.primary-btn,.secondary-btn{
+padding:15px 30px;
+font-size:18px;
+}
+
+.primary-btn{
+background:#111;
+color:white;
+}
+
+.secondary-btn{
+background:white;
+color:black;
+border:3px solid black;
+}
+
+.contract-box{
+margin-top:25px;
+background:white;
+color:black;
+padding:15px 20px;
+border-radius:50px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+max-width: 100%;
+}
+
+.contract-box span {
+word-break: break-all;
+font-size: clamp(12px, 1.5vw, 15px);
+font-weight: 600;
+}
+
+.copy-btn{
+padding:10px 18px;
+background:#dfff4f;
+transition: background 0.3s, color 0.3s;
+flex-shrink: 0;
+}
+
+/* Kolom Tengah: Wadah Balon Udara Anniversary 3 Years */
+.home-center-balloon {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+}
+
+.center-bg-balloon {
+width: 100%;
+max-width: 360px; 
+height: auto;
+object-fit: contain;
+animation: floatingBalloon 4s ease-in-out infinite;
+}
+
+/* Kolom Kanan: Maskot & Jet Alien */
+.home-left{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 15px;
+position: relative;
+}
+
+.main-hero-avatar {
+width: 100%;
+max-width: 290px; 
+height: auto;
+animation: floatAvatar 3s infinite ease-in-out;
+}
+
+.sub-hero-jet {
+width: 100%;
+max-width: 340px; 
+height: auto;
+animation: floatJet 3.5s infinite ease-in-out;
+}
+
+@keyframes floatingBalloon {
+0%, 100% { transform: translateY(0px) rotate(0deg); }
+50% { transform: translateY(-15px) rotate(1deg); }
+}
+
+@keyframes floatAvatar {
+0%, 100% { transform: translateY(0px); }
+50% { transform: translateY(-15px); }
+}
+
+@keyframes floatJet {
+0%, 100% { transform: translateY(0px) rotate(0deg); }
+50% { transform: translateY(-10px) rotate(-1deg); }
+}
+
+/* BOTTOM TEXT */
+.bottom-text{
+grid-column: 1 / -1;
+margin-top: 50px;
+font-size: clamp(18px, 2.5vw, 32px);
+font-weight: 600;
+color: #ffffff;
+-webkit-text-stroke: 0px transparent;
+text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(223, 255, 79, 0.2);
+line-height: 1.4;
+border-top: 2px dashed rgba(255, 255, 255, 0.2);
+padding-top: 25px;
+letter-spacing: 0.5px;
+}
+
+.section-title{
+text-align:center;
+font-size: clamp(38px, 6vw, 75px);
+margin-bottom:30px;
+-webkit-text-stroke:3px black;
+text-shadow:4px 4px 0 black;
+}
+
+.section-text{
+max-width:900px;
+margin:auto;
+text-align:center;
+font-size: clamp(16px, 2vw, 26px);
+padding: 0 10px;
+}
+
+#meme, #games, #chart, #roadmap, #play-game, #contact, #marketcap {
+background: rgba(11, 13, 25, 0.4); 
+backdrop-filter: blur(2px);
+}
+
+.video-container-wrap {
+display: flex; 
+gap: 20px; 
+justify-content: center; 
+flex-wrap: wrap; 
+margin-bottom: 40px;
+padding: 0 10px;
+}
+
+.meme-card video{
+width:100%;
+height:auto;
+max-height:500px;
+object-fit:contain;
+border-radius:20px;
+display:block;
+background:black;
+}
+
+.meme-card video:hover{
+transform:scale(1.03);
+transition:.3s;
+}
+
+.meme-gallery,.games-container,.roadmap-container{
+max-width:1300px;
+margin:auto;
+display:grid;
+gap:25px;
+margin-top:50px;
+padding: 0 15px;
+}
+
+.meme-gallery{
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+}
+
+.games-container{
+grid-template-columns:repeat(auto-fit,minmax(450px,1fr));
+}
+
+.roadmap-container{
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+}
+
+.meme-card,.game-card,.roadmap-card{
+background:rgba(255,255,255,.08);
+padding:20px;
+border-radius:25px;
+backdrop-filter:blur(10px);
+}
+
+.meme-card img,.chart-box img{
+width:100%;
+height: auto;
+border-radius:20px;
+}
+
+.meme-card img{
+height:280px;
+object-fit:cover;
+}
+
+.chart-box{
+max-width:1000px;
+margin:auto;
+background:black;
+padding:20px;
+border-radius:25px;
+position:relative;
+}
+
+.chart-video{
+display:flex;
+justify-content:center;
+margin-top:25px;
+}
+
+.chart-video video{
+width:260px;
+max-width:100%;
+height:auto;
+background:transparent;
+display:block;
+}
+
+.chart-wrap{
+position:relative;
+overflow:hidden;
+}
+
+.chart-overlay-video{
+position:absolute;
+bottom:4%; 
+right:4%; 
+width:30%; 
+max-width: 400px;
+min-width: 120px;
+height:auto;
+background:transparent;
+pointer-events:none;
+z-index:5;
+}
+
+.game-frame{
+width:100%;
+height:420px;
+border:none;
+border-radius:20px;
+background:black;
+}
+.game-thumb{
+width:100%;
+height:320px;
+object-fit:cover;
+border-radius:20px;
+background:black;
+cursor:pointer;
+transition:.3s;
+}
+
+.game-thumb:hover{
+transform:scale(1.03);
+}
+
+.play-btn{
+width:100%;
+margin-top:15px;
+padding:15px;
+background:#dfff4f;
+color: black;
+}
+
+/* STYLE AREA LIVE MINI GAME */
+.game-arena-wrapper {
+max-width: 800px;
+margin: 30px auto 0;
+background: rgba(255, 255, 255, 0.05);
+border: 3px solid #22252a;
+border-radius: 25px;
+padding: 20px;
+text-align: center;
+backdrop-filter: blur(10px);
+box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+#miniGameCanvas {
+background: radial-gradient(circle, #1a1c2e, #090a14);
+border-radius: 15px;
+display: block;
+margin: 0 auto;
+max-width: 100%;
+height: auto;
+cursor: none;
+border: 2px solid rgba(223, 255, 79, 0.3);
+}
+
+.game-controls-panel {
+margin-top: 15px;
+display: flex;
+justify-content: center;
+gap: 15px;
+}
+
+.game-status-btn {
+padding: 10px 25px;
+font-size: 16px;
+background: #dfff4f;
+color: black;
+border: none;
+border-radius: 20px;
+font-weight: bold;
+cursor: pointer;
+box-shadow: 0 4px 0 #000;
+}
+
+.float-buy{
+position:fixed;
+right:25px;
+bottom:25px;
+padding:18px 28px;
+background:#dfff4f;
+font-size:22px;
+z-index:999;
+}
+
+#speakerBtn{
+position:fixed;
+left:25px;
+bottom:25px;
+width:65px;
+height:65px;
+background:#dfff4f;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:30px;
+cursor:pointer;
+z-index:9999;
+box-shadow:0 5px 0 #000;
+}
+
+/* ===================================================
+   CSS UNTUK GRID MARKET KARTU TRADES
+   =================================================== */
+.trade-wrapper {
+max-width: 1300px;
+margin: 40px auto 0;
+padding: 0 20px;
+}
+
+.market-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 20px;
+}
+
+.market-card {
+background: #121318; 
+border: 1px solid #22252a;
+border-radius: 20px;
+padding: 24px;
+text-align: left;
+cursor: pointer;
+position: relative;
+transition: transform 0.3s, border-color 0.3s;
+font-family: sans-serif;
+}
+
+.market-card:hover {
+transform: translateY(-5px);
+border-color: #dfff4f;
+}
+
+.market-header {
+display: flex;
+align-items: center;
+gap: 14px;
+margin-bottom: 24px;
+position: relative;
+}
+
+.market-logo {
+width: 44px;
+height: 44px;
+object-fit: contain;
+border-radius: 50%;
+}
+
+.market-name-info {
+display: flex;
+flex-direction: column;
+}
+
+.market-title {
+font-size: 20px;
+font-weight: 700;
+letter-spacing: 0.5px;
+color: #ffffff;
+text-transform: uppercase;
+}
+
+.market-type {
+font-size: 11px;
+font-weight: 600;
+color: #848e9c;
+letter-spacing: 1px;
+margin-top: 2px;
+}
+
+.market-type.dex-purple {
+color: #b183ff;
+}
+
+.market-type.wallet-cyan {
+color: #00f3ff;
+}
+
+.arrow-icon {
+position: absolute;
+top: 0;
+right: 0;
+width: 32px;
+height: 32px;
+border: 1px solid #22252a;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+background: #181a20;
+}
+
+.arrow-icon svg {
+width: 14px;
+height: 14px;
+fill: #848e9c;
+}
+
+.market-row {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 10px 0;
+border-bottom: 1px solid #1e2229;
+font-size: 14px;
+}
+
+.market-row:last-child {
+border-bottom: none;
+padding-bottom: 0;
+}
+
+.market-label {
+color: #848e9c;
+font-weight: 500;
+}
+
+.market-value {
+color: #ffffff;
+font-weight: 600;
+}
+
+.market-price {
+color: #ffffff;
+font-weight: 700;
+font-size: 16px;
+}
+
+/* MEDIA QUERIES UNTUK RESPONSIVE LAYOUT */
+@media(max-width:1200px){
+.home-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+.home-center-balloon {
+    display: none; 
+}
+}
+
+@media(max-width:992px){
+/* Sembunyikan Navigasi biasa & Tampilkan Burger Menu */
+.burger-menu {
+    display: flex;
+}
+
+.navbar {
+    padding: 20px 40px;
+}
+
+.nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: rgba(11, 13, 25, 0.96);
+    backdrop-filter: blur(25px);
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+    padding: 40px;
+    transition: 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.nav-links.active {
+    right: 0;
+}
+
+.nav-right {
+    margin-right: 50px; /* Jarak agar tombol tidak bertabrakan dengan ikon burger */
+}
+}
+
+@media(max-width:768px){
+.navbar {
+    padding: 15px 20px;
+}
+.nav-right {
+    gap: 10px;
+    margin-right: 45px;
+}
+.buy-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+}
+.social-nav-btn {
+    font-size: 20px;
+}
+.logo img {
+    width: 160px;
+}
+.home-content{
+    display: flex;
+    flex-direction:column;
+    text-align:center;
+}
+.home-content .home-right{
+    align-items: center;
+}
+.button-group {
+    justify-content: center;
+}
+.games-container{
+    grid-template-columns:1fr;
+}
+.game-frame{
+    height:280px;
+}
+.section{
+    padding: 120px 15px 60px; 
+}
+.bg-planet {
+    width: 200px;
+    height: 200px;
+    right: -50px;
+}
+.center-bg-balloon, .main-hero-avatar, .sub-hero-jet {
+    margin: 10px auto;
+    max-width: 240px;
+}
+.anniversary-zeppelin-forward {
+    max-width: 220px;
+}
+@keyframes flightForwardOnly {
+    0% { left: 110%; }
+    100% { left: -260px; }
+}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="space-bg"></canvas>
+<div class="bg-planet"></div>
+
+<nav class="navbar">
+<div class="logo">
+<img src="alien-logo.png" alt="Logo">
+</div>
+
+<div class="burger-menu" id="burgerToggle" onclick="toggleMenuDrawer()">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<ul class="nav-links" id="menuDrawer">
+<li><a href="#home" onclick="closeMenuDrawer()">HOME</a></li>
+<li><a href="#meme" onclick="closeMenuDrawer()">VIDEO</a></li>
+<li><a href="#chart" onclick="closeMenuDrawer()">CHART</a></li>
+<li><a href="#games" onclick="closeMenuDrawer()">GAMES</a></li>
+<li><a href="#marketcap" onclick="closeMenuDrawer()">MARKETCAP</a></li>
+<li><a href="#play-game" onclick="closeMenuDrawer()">PLAY LIVE GAME</a></li>
+<li><a href="#contact" onclick="closeMenuDrawer()">TRADES</a></li>
+</ul>
+
+<div class="nav-right">
+<a class="social-nav-btn" onclick="openTwitter()" title="Twitter / X">🐦</a>
+<a class="social-nav-btn" onclick="openTelegram()" title="Telegram">💬</a>
+<button class="buy-btn" onclick="openDex()">BUY NOW</button>
+</div>
+</nav>
+
+<section id="home" class="section">
+<div class="home-content">
+
+    <div class="home-right">
+        <h1>APEPE_MEME</h1>
+        <p>THE BEST MEMECOIN ON POLYGON</p>
+
+        <div class="button-group">
+            <button class="primary-btn" onclick="window.open('https://app.uniswap.org/swap?outputCurrency=0xa3f751662e282e83ec3cbc387d225ca56dd63d3a', '_blank')">BUY $APEPE</button>
+            <button class="secondary-btn" onclick="goLiveGame()">PLAY APEPE GAME</button>
+        </div>
+
+        <div class="contract-box">
+            <span>CA: 0xa3f751662e282e83ec3cbc387d225ca56dd63d3a</span>
+            <button class="copy-btn" onclick="copyCA(this)">COPY</button>
+        </div>
+
+        <div class="zeppelin-forward-container">
+            <img src="fd07a870-42ed-4ef6-af4e-bffc8f17999a.png" class="anniversary-zeppelin-forward" alt="Happy Anniversary 3 Year Zeppelin">
+        </div>
+    </div>
+
+    <div class="home-center-balloon">
+        <img src="47818435-8988-4eac-ba4a-d7c8546143bf.png" class="center-bg-balloon" alt="Happy Anniversary 3 Years Balloon">
+    </div>
+
+    <div class="home-left">
+        <img src="18d6895e-cbb3-42a0-bf32-727f9728947b.png" class="main-hero-avatar" alt="Alien Hero">
+        <img src="317921ed-476b-4a87-a6d1-d70da20c5273 (1).png" class="sub-hero-jet" alt="Happy Anniversary 3 Years Jet">
+    </div>
+
+    <div class="bottom-text">Polygon-based Web3 ecosystem focused on community, creator culture, digital IP, and blockchain utilities.
+    </div>
+
+</div>
+</section>
+
+<section id="meme" class="section">
+    <div class="video-container-wrap">
+        <div class="meme-card" style="flex: 1; min-width: 280px; max-width: 500px;">
+            <video controls autoplay muted loop playsinline>
+            <source src="ASSET.MP4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="meme-card" style="flex: 1; min-width: 280px; max-width: 500px;">
+            <video controls autoplay muted loop playsinline>
+            <source src="trump-dance.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+<h1 class="section-title">APEPE NEWS</h1>
+<div class="section-text">APEPE MEME COLLECTION.</div>
+
+<div class="meme-gallery">
+<div class="meme-card"><img src="meme1.png"></div>
+<div class="meme-card"><img src="meme2.png"></div>
+<div class="meme-card"><img src="meme3.png"></div>
+<div class="meme-card"><img src="meme4.png"></div>
+<div class="meme-card"><img src="meme5.png"></div>
+<div class="meme-card"><img src="meme6.png"></div>
+<div class="meme-card"><img src="meme7.png"></div>
+<div class="meme-card"><img src="meme8.png"></div>
+</div>
+</section>
+
+<section id="chart" class="section">
+<h1 class="section-title">CHART</h1>
+
+<div class="chart-box chart-wrap">
+    <img src="chart.png">
+
+    <video class="chart-overlay-video" autoplay muted loop playsinline>
+        <source src="alien-trump.webm" type="video/webm">
+    </video>
+</div>
+</section>
+
+<section id="games" class="section">
+<h1 class="section-title">UNITY GAMES</h1>
+<div class="section-text">Play APEPE games</div>
+
+<div class="games-container">
+<div class="game-card">
+    <h2>APEPE 2D GAME </h2>
+    <img src="game1-thumb.jpg" class="game-thumb" onclick="window.open('https://hermsan.itch.io/realfi-game', '_blank')">
+    <button class="play-btn" onclick="window.open('https://hermsan.itch.io/apepe-2d-game', '_blank')">PLAY</button>
+</div>
+
+<div class="game-card">
+    <h2>APEPE SPACE GAME </h2>
+    <img src="game2-thumb.jpg" class="game-thumb" onclick="window.open('https://hermsan.itch.io/realmariogame', '_blank')">
+    <button class="play-btn" onclick="window.open('https://hermsan.itch.io/apepe-game', '_blank')">PLAY</button>
+</div>
+</div>
+</section>
+
+<section id="marketcap" class="section">
+<h1 class="section-title">MARKETCAP</h1>
+<div class="chart-box">
+<img src="marketcap.png">
+</div>
+</section>
+
+<section id="play-game" class="section">
+<h1 class="section-title">CATCH THE COINS</h1>
+<div class="section-text">move your mouse left/right to control APEPE Alien and collect as many MATIC coins as possible!</div>
+
+<div class="game-arena-wrapper">
+    <canvas id="miniGameCanvas" width="700" height="400"></canvas>
+    <div class="game-controls-panel">
+        <button class="game-status-btn" onclick="startMiniGame()">START / RESTART GAME</button>
+    </div>
+</div>
+</section>
+
+<section id="contact" class="section">
+<h1 class="section-title">TRADES APEPE_MEME ON</h1>
+
+<div class="trade-wrapper">
+    <div class="market-grid">
+        
+        <div class="market-card" onclick="openHtx()">
+            <div class="market-header">
+                <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/495.png" class="market-logo" alt="HTX">
+                <div class="market-name-info">
+                    <span class="market-title">L-BANK</span>
+                    <span class="market-type">CEX</span>
+                </div>
+                <div class="arrow-icon">
+                    <svg viewBox="0 0 24 24"><path d="M5 5h5v2H7.41L17 16.59V14h2v5h-5v-2h2.59L5 7.41V5z"/></svg>
+                </div>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Pair</span>
+                <span class="market-value">APEPE/USDT</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Price</span>
+                <span class="market-price">$0.177</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">24h Vol</span>
+                <span class="market-value">$4.8K</span>
+            </div>
+        </div>
+
+        <div class="market-card" onclick="openLbank()">
+            <div class="market-header">
+                <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/463.png" class="market-logo" alt="LBank">
+                <div class="market-name-info">
+                    <span class="market-title">HTX</span>
+                    <span class="market-type">CEX</span>
+                </div>
+                <div class="arrow-icon">
+                    <svg viewBox="0 0 24 24"><path d="M5 5h5v2H7.41L17 16.59V14h2v5h-5v-2h2.59L5 7.41V5z"/></svg>
+                </div>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Pair</span>
+                <span class="market-value">APEPE/USDT</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Price</span>
+                <span class="market-price">$0.175</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">24h Vol</span>
+                <span class="market-value">$623.1K</span>
+            </div>
+        </div>
+
+        <div class="market-card" onclick="openMexc()">
+            <div class="market-header">
+                <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/544.png" class="market-logo" alt="MEXC">
+                <div class="market-name-info">
+                    <span class="market-title">MEXC</span>
+                    <span class="market-type">CEX</span>
+                </div>
+                <div class="arrow-icon">
+                    <svg viewBox="0 0 24 24"><path d="M5 5h5v2H7.41L17 16.59V14h2v5h-5v-2h2.59L5 7.41V5z"/></svg>
+                </div>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Pair</span>
+                <span class="market-value">APEPE/USDT</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Price</span>
+                <span class="market-price">$0.177</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">24h Vol</span>
+                <span class="market-value">$407.1K</span>
+            </div>
+        </div>
+
+        <div class="market-card" onclick="openBitmart()">
+            <div class="market-header">
+                <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/406.png" class="market-logo" alt="BitMart">
+                <div class="market-name-info">
+                    <span class="market-title">BitMart</span>
+                    <span class="market-type">CEX</span>
+                </div>
+                <div class="arrow-icon">
+                    <svg viewBox="0 0 24 24"><path d="M5 5h5v2H7.41L17 16.59V14h2v5h-5v-2h2.59L5 7.41V5z"/></svg>
+                </div>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Pair</span>
+                <span class="market-value">APEPE/USDT</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Price</span>
+                <span class="market-price">$0.176</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">24h Vol</span>
+                <span class="market-value">$285.4K</span>
+            </div>
+        </div>
+
+        <div class="market-card" onclick="openUniswap()">
+            <div class="market-header">
+                <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/1348.png" class="market-logo" alt="Uniswap">
+                <div class="market-name-info">
+                    <span class="market-title">Uniswap</span>
+                    <span class="market-type dex-purple">DEX · V3 · POLYGON</span>
+                </div>
+                <div class="arrow-icon">
+                    <svg viewBox="0 0 24 24"><path d="M5 5h5v2H7.41L17 16.59V14h2v5h-5v-2h2.59L5 7.41V5z"/></svg>
+                </div>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Pair</span>
+                <span class="market-value">APEPE/USDC</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Price</span>
+                <span class="market-price">$0.177</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">24h Vol</span>
+                <span class="market-value">$7.2K</span>
+            </div>
+        </div>
+
+        <div class="market-card" onclick="openBitget()">
+            <div class="market-header">
+                <img src="BITGET.PNG" class="market-logo" alt="Bitget Wallet">
+                <div class="market-name-info">
+                    <span class="market-title">Bitget Wallet</span>
+                    <span class="market-type wallet-cyan">WEB3 · SWAP · POLYGON</span>
+                </div>
+                <div class="arrow-icon">
+                    <svg viewBox="0 0 24 24"><path d="M5 5h5v2H7.41L17 16.59V14h2v5h-5v-2h2.59L5 7.41V5z"/></svg>
+                </div>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Pair</span>
+                <span class="market-value">APEPE/MATIC</span>
+            </div>
+            <div class="market-row">
+                <span class="market-price">$0.177</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Type</span>
+                <span class="market-value">Non-Custodial</span>
+            </div>
+        </div>
+
+        <div class="market-card" onclick="openOkx()">
+            <div class="market-header">
+                <img src="https://s2.coinmarketcap.com/static/img/exchanges/64x64/294.png" class="market-logo" alt="OKX Wallet">
+                <div class="market-name-info">
+                    <span class="market-title">OKX Wallet</span>
+                    <span class="market-type wallet-cyan">WEB3 · TOKEN · POLYGON</span>
+                </div>
+                <div class="arrow-icon">
+                    <svg viewBox="0 0 24 24"><path d="M5 5h5v2H7.41L17 16.59V14h2v5h-5v-2h2.59L5 7.41V5z"/></svg>
+                </div>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Chain</span>
+                <span class="market-value">Polygon Network</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Price</span>
+                <span class="market-price">$0.176</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Security</span>
+                <span class="market-value">Verified</span>
+            </div>
+        </div>
+
+        <div class="market-card" onclick="openTria()">
+            <div class="market-header">
+                <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png" class="market-logo" style="filter: hue-rotate(140deg);" alt="Tria Wallet">
+                <div class="market-name-info">
+                    <span class="market-title">Tria Wallet</span>
+                    <span class="market-type dex-purple">SMART WALLET · ASSETS</span>
+                </div>
+                <div class="arrow-icon">
+                    <svg viewBox="0 0 24 24"><path d="M5 5h5v2H7.41L17 16.59V14h2v5h-5v-2h2.59L5 7.41V5z"/></svg>
+                </div>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Asset</span>
+                <span class="market-value">APEPE / POLYGON</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Price</span>
+                <span class="market-price">$0.177</span>
+            </div>
+            <div class="market-row">
+                <span class="market-label">Platform</span>
+                <span class="market-value">Tria Ecosystem</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+</section>
+
+<audio id="bgMusic" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div id="speakerBtn" onclick="toggleMusic()">🔊</div>
+
+<script>
+/* FUNGSI TOGGLE DRAWER BURGER MENU */
+function toggleMenuDrawer() {
+    const burgerToggle = document.getElementById('burgerToggle');
+    const menuDrawer = document.getElementById('menuDrawer');
+    burgerToggle.classList.toggle('active');
+    menuDrawer.classList.toggle('active');
+}
+
+function closeMenuDrawer() {
+    const burgerToggle = document.getElementById('burgerToggle');
+    const menuDrawer = document.getElementById('menuDrawer');
+    burgerToggle.classList.remove('active');
+    menuDrawer.classList.remove('active');
+}
+
+const canvas = document.getElementById('space-bg');
+const ctx = canvas.getContext('2d');
+
+let stars = [];
+let coins = [];
+const starCount = 150;
+const coinCount = 25;
+
+const cryptoSources = [
+    'https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png' 
+];
+
+const coinImages = cryptoSources.map(src => {
+    const img = new Image();
+    img.src = src;
+    return img;
+});
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+for (let i = 0; i < starCount; i++) {
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2,
+        twinkleSpeed: 0.01 + Math.random() * 0.03,
+        opacity: Math.random()
+    });
+}
+
+for (let i = 0; i < coinCount; i++) {
+    const randomImgIndex = Math.floor(Math.random() * coinImages.length);
+    coins.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: 30 + Math.random() * 25,
+        speedY: 0.8 + Math.random() * 1.8,
+        speedX: (Math.random() - 0.5) * 0.4,
+        rotation: Math.random() * Math.PI * 2,
+        rotSpeed: 0.01 + Math.random() * 0.02,
+        img: coinImages[randomImgIndex]
+    });
+}
+
+function animateSpace() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = '#ffffff';
+    stars.forEach(star => {
+        star.opacity += star.twinkleSpeed;
+        if (star.opacity > 1 || star.opacity < 0) {
+            star.twinkleSpeed = -star.twinkleSpeed;
+        }
+        ctx.globalAlpha = Math.max(0.1, star.opacity);
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fill();
+    });
+
+    coins.forEach(coin => {
+        coin.y += coin.speedY;
+        coin.x += coin.speedX;
+        coin.rotation += coin.rotSpeed;
+
+        if (coin.y > canvas.height + 60) {
+            coin.y = -60;
+            coin.x = Math.random() * canvas.width;
+            coin.speedY = 0.8 + Math.random() * 1.8;
+            coin.img = coinImages[Math.floor(Math.random() * coinImages.length)];
+        }
+
+        if (coin.x < -50 || coin.x > canvas.width + 50) {
+            coin.speedX = -coin.speedX;
+        }
+
+        ctx.save();
+        ctx.translate(coin.x, coin.y);
+        ctx.rotate(coin.rotation);
+        ctx.globalAlpha = 0.8; 
+
+        if (coin.img.complete && coin.img.naturalWidth !== 0) {
+            ctx.drawImage(coin.img, -coin.size/2, -coin.size/2, coin.size, coin.size);
+        } else {
+            ctx.beginPath();
+            ctx.arc(0, 0, coin.size/2, 0, Math.PI * 2);
+            ctx.fillStyle = '#8247e5';
+            ctx.fill();
+        }
+        ctx.restore();
+    });
+
+    ctx.globalAlpha = 1.0; 
+    requestAnimationFrame(animateSpace);
+}
+
+window.addEventListener('load', () => {
+    animateSpace();
+    initMiniGame(); 
+});
+
+function copyCA(button) {
+    navigator.clipboard.writeText("0xa3f751662e282e83ec3cbc387d225ca56dd63d3a").then(() => {
+        const originalText = button.innerText;
+        button.innerText = "COPIED!";
+        button.style.background = "#ffffff";
+        button.style.color = "#000000";
+        
+        setTimeout(() => {
+            button.innerText = originalText;
+            button.style.background = "#dfff4f";
+            button.style.color = "";
+        }, 2000);
+    }).catch(err => {
+        console.error("Gagal menyalin text: ", err);
+    });
+}
+
+function openGamePage(url){ window.location.href = url; }
+function openDex(){ window.open("https://www.mexc.com/exchange/APEPE_USDT?shareCode=mexc-3LzxQ","_blank"); }
+function openTwitter(){ window.open("https://x.com/APEPE_MEME","_blank"); }
+function openTelegram(){ window.open("https://t.me/APEPE_Official","_blank"); }
+
+function openHtx() { window.open("https://www.huobi.com/trade/apepe_usdt?inviter_id=11345710&invite_code=zh5i6223", "_blank"); }
+function openLbank() { window.open("https://www.lbank.com/trade/apepe_usdt", "_blank"); }
+function openMexc() { window.open("https://www.mexc.com/exchange/APEPE_USDT?shareCode=mexc-3LzxQ","_blank"); }
+function openBitmart() { window.open("https://www.bitmart.com/en-US/trade/APEPE_USDT?r=cGw5Mh", "_blank"); }
+function openUniswap() { window.open("https://dex.coinmarketcap.com/token/polygon/0xA3f751662e282E83EC3cBc387d225Ca56dD63D3A/", "_blank"); }
+
+function openBitget() { window.open("https://web3.bitget.com/en/swap/matic/0xA3f751662e282E83EC3cBc387d225Ca56dD63D3A", "_blank"); }
+function openOkx() { window.open("https://web3.okx.com/token/polygon/0xa3f751662e282e83ec3cbc387d225ca56dd63d3a", "_blank"); }
+function openTria() { window.open("https://app.tria.so/assets/POLYGON/0xA3f751662e282E83EC3cBc387d225Ca56dD63D3A", "_blank"); }
+
+const music=document.getElementById("bgMusic");
+const speaker=document.getElementById("speakerBtn");
+let playing=false;
+
+function toggleMusic(){
+if(playing){
+music.pause();
+speaker.innerHTML="🔇";
+playing=false;
+}else{
+music.play();
+speaker.innerHTML="🔊";
+playing=true;
+}
+}
+function goGames(){ document.getElementById("games").scrollIntoView({ behavior:"smooth" }); }
+function goLiveGame(){ document.getElementById("play-game").scrollIntoView({ behavior:"smooth" }); }
+
+// =========================================================================
+// SCRIPT MINI GAME PERBAIKAN KOORDINAT SENTUH HP (RESPONSIVE RATIO)
+// =========================================================================
+const gameCanvas = document.getElementById('miniGameCanvas');
+const gCtx = gameCanvas.getContext('2d');
+
+let gameActive = false;
+let gameScore = 0;
+let gameLife = 3;
+let fallingItems = [];
+let gameLoopId;
+
+let candlestickData = [];
+function generateStaticChart() {
+    candlestickData = [];
+    let currentPrice = 180;
+    const spacing = 35; 
+    const totalCandles = Math.ceil(gameCanvas.width / spacing) + 1;
+
+    for (let i = 0; i < totalCandles; i++) {
+        let open = currentPrice;
+        let close = open + (Math.random() - 0.5) * 45;
+        let high = Math.max(open, close) + Math.random() * 15;
+        let low = Math.min(open, close) - Math.random() * 15;
+        
+        candlestickData.push({
+            x: i * spacing,
+            open: open,
+            close: close,
+            high: high,
+            low: low,
+            isGreen: close >= open
+        });
+        currentPrice = close;
+    }
+}
+
+function drawChartBackground() {
+    gCtx.save();
+    gCtx.globalAlpha = 0.15; 
+    gCtx.fillStyle = "#ffffff";
+    gCtx.font = "bold 28px Fredoka";
+    gCtx.textAlign = "left";
+    gCtx.fillText("APEPE/MATIC", 25, 45);
+    gCtx.restore();
+
+    gCtx.save();
+    gCtx.globalAlpha = 0.08; 
+    
+    candlestickData.forEach(candle => {
+        gCtx.strokeStyle = candle.isGreen ? "#00ff66" : "#ff3b3b";
+        gCtx.fillStyle = candle.isGreen ? "#00ff66" : "#ff3b3b";
+        gCtx.lineWidth = 2;
+
+        gCtx.beginPath();
+        gCtx.moveTo(candle.x, candle.high);
+        gCtx.lineTo(candle.x, candle.low);
+        gCtx.stroke();
+
+        let bodyWidth = 18;
+        let bodyHeight = Math.abs(candle.close - candle.open) || 2;
+        let bodyY = Math.min(candle.open, candle.close);
+        gCtx.fillRect(candle.x - bodyWidth / 2, bodyY, bodyWidth, bodyHeight);
+    });
+    
+    gCtx.restore();
+}
+
+const alienPlayerImage = new Image();
+alienPlayerImage.src = 'apepe.png'; 
+
+const polygonCoinImg = new Image();
+polygonCoinImg.src = 'https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png';
+
+const player = {
+    x: gameCanvas.width / 2 - 45,
+    y: gameCanvas.height - 150,
+    width: 90,
+    height: 150
+};
+
+// Menghitung akurasi rasio sentuhan ketika canvas mengecil di mobile
+gameCanvas.addEventListener('mousemove', (e) => {
+    const rect = gameCanvas.getBoundingClientRect();
+    const scaleX = gameCanvas.width / rect.width; 
+    const mouseX = (e.clientX - rect.left) * scaleX;
+    
+    player.x = mouseX - player.width / 2;
+    if (player.x < 0) player.x = 0;
+    if (player.x > gameCanvas.width - player.width) player.x = gameCanvas.width - player.width;
+});
+
+gameCanvas.addEventListener('touchmove', (e) => {
+    if(e.touches.length > 0) {
+        const rect = gameCanvas.getBoundingClientRect();
+        const scaleX = gameCanvas.width / rect.width;
+        const touchX = (e.touches[0].clientX - rect.left) * scaleX;
+        
+        player.x = touchX - player.width / 2;
+        if (player.x < 0) player.x = 0;
+        if (player.x > gameCanvas.width - player.width) player.x = gameCanvas.width - player.width;
+    }
+    e.preventDefault();
+}, { passive: false });
+
+function initMiniGame() {
+    generateStaticChart(); 
+    gCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+    drawChartBackground();
+    
+    gCtx.fillStyle = "#ffffff";
+    gCtx.font = "24px Fredoka";
+    gCtx.textAlign = "center";
+    gCtx.fillText("CLICK START BUTTON TO PLAY!", gameCanvas.width / 2, gameCanvas.height / 2 + 30);
+}
+
+function startMiniGame() {
+    if (gameActive) cancelAnimationFrame(gameLoopId);
+    generateStaticChart(); 
+    gameActive = true;
+    gameScore = 0;
+    gameLife = 3;
+    fallingItems = [];
+    spawnFallingCoin();
+    updateMiniGame();
+}
+
+function spawnFallingCoin() {
+    if (!gameActive) return;
+    fallingItems.push({
+        x: Math.random() * (gameCanvas.width - 30),
+        y: -30,
+        size: 30,
+        speed: 2 + Math.random() * 4
+    });
+    setTimeout(spawnFallingCoin, 900 - Math.min(gameScore * 10, 500));
+}
+
+function updateMiniGame() {
+    if (!gameActive) return;
+
+    gCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+    drawChartBackground();
+
+    if (alienPlayerImage.complete && alienPlayerImage.naturalWidth !== 0) {
+        gCtx.drawImage(alienPlayerImage, player.x, player.y, player.width, player.height);
+    } else {
+        gCtx.fillStyle = "#8247e5";
+        gCtx.fillRect(player.x, player.y + 40, player.width, player.height - 40);
+        gCtx.fillStyle = "#00ff00";
+        gCtx.beginPath();
+        gCtx.arc(player.x + player.width/2, player.y + 25, 20, 0, Math.PI*2);
+        gCtx.fill();
+    }
+
+    for (let i = fallingItems.length - 1; i >= 0; i--) {
+        let item = fallingItems[i];
+        item.y += item.speed;
+
+        if (polygonCoinImg.complete) {
+            gCtx.drawImage(polygonCoinImg, item.x, item.y, item.size, item.size);
+        } else {
+            gCtx.fillStyle = "#8247e5";
+            gCtx.beginPath();
+            gCtx.arc(item.x + item.size/2, item.y + item.size/2, item.size/2, 0, Math.PI*2);
+            gCtx.fill();
+        }
+
+        if (
+            item.x < player.x + player.width &&
+            item.x + item.size > player.x &&
+            item.y < player.y + player.height &&
+            item.y + item.size > player.y
+        ) {
+            gameScore += 10;
+            fallingItems.splice(i, 1);
+            continue;
+        }
+
+        if (item.y > gameCanvas.height) {
+            gameLife--;
+            fallingItems.splice(i, 1);
+            
+            if (gameLife <= 0) {
+                gameActive = false;
+                gameOverScreen();
+                return;
+            }
+        }
+    }
+
+    gCtx.fillStyle = "#ffffff";
+    gCtx.font = "bold 20px Fredoka";
+    gCtx.textAlign = "left";
+    gCtx.fillText("💥 SCORE: " + gameScore, 20, 35);
+    
+    gCtx.textAlign = "right";
+    gCtx.fillStyle = "#ff4a4a";
+    gCtx.fillText("❤️ LIFE: " + "❤️".repeat(gameLife), gameCanvas.width - 20, 35);
+
+    gameLoopId = requestAnimationFrame(updateMiniGame);
+}
+
+function gameOverScreen() {
+    gCtx.fillStyle = "rgba(0, 0, 0, 0.8)";
+    gCtx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+    
+    gCtx.fillStyle = "#ff4a4a";
+    gCtx.font = "bold 45px Fredoka";
+    gCtx.textAlign = "center";
+    gCtx.fillText("GAME OVER", gameCanvas.width / 2, gameCanvas.height / 2 - 20);
+    
+    gCtx.fillStyle = "#ffffff";
+    gCtx.font = "24px Fredoka";
+    gCtx.fillText("Final Score: " + gameScore, gameCanvas.width / 2, gameCanvas.height / 2 + 25);
+    gCtx.font = "16px Fredoka";
+    gCtx.fillText("Click start button below to try again!", gameCanvas.width / 2, gameCanvas.height / 2 + 65);
+}
+</script>
+</body>
+</html>
